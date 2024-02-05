@@ -1,0 +1,468 @@
+INFO:__main__:Configuration: Successfully read configuration from config.json
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/planets?page=1
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/planets?page=2
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/planets?page=3
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/planets?page=4
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/planets?page=5
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/planets?page=6
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/planets
+INFO:__main__:Odoo: Successfully authenticated
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Tatooine, ID SWAPI: 1, ID Odoo: 2842
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Alderaan, ID SWAPI: 2, ID Odoo: 2843
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Yavin IV, ID SWAPI: 3, ID Odoo: 2844
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Hoth, ID SWAPI: 4, ID Odoo: 2845
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Dagobah, ID SWAPI: 5, ID Odoo: 2846
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Bespin, ID SWAPI: 6, ID Odoo: 2847
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Endor, ID SWAPI: 7, ID Odoo: 2848
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Naboo, ID SWAPI: 8, ID Odoo: 2849
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Coruscant, ID SWAPI: 9, ID Odoo: 2850
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Kamino, ID SWAPI: 10, ID Odoo: 2851
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Geonosis, ID SWAPI: 11, ID Odoo: 2852
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Utapau, ID SWAPI: 12, ID Odoo: 2853
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Mustafar, ID SWAPI: 13, ID Odoo: 2854
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Kashyyyk, ID SWAPI: 14, ID Odoo: 2855
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Polis Massa, ID SWAPI: 15, ID Odoo: 2856
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Mygeeto, ID SWAPI: 16, ID Odoo: 2857
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Felucia, ID SWAPI: 17, ID Odoo: 2858
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Cato Neimoidia, ID SWAPI: 18, ID Odoo: 2859
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Saleucami, ID SWAPI: 19, ID Odoo: 2860
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Stewjon, ID SWAPI: 20, ID Odoo: 2861
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Eriadu, ID SWAPI: 21, ID Odoo: 2862
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Corellia, ID SWAPI: 22, ID Odoo: 2863
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Rodia, ID SWAPI: 23, ID Odoo: 2864
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Nal Hutta, ID SWAPI: 24, ID Odoo: 2865
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Dantooine, ID SWAPI: 25, ID Odoo: 2866
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Bestine IV, ID SWAPI: 26, ID Odoo: 2867
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Ord Mantell, ID SWAPI: 27, ID Odoo: 2868
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: unknown, ID SWAPI: 28, ID Odoo: 2869
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Trandosha, ID SWAPI: 29, ID Odoo: 2870
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Socorro, ID SWAPI: 30, ID Odoo: 2871
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Mon Cala, ID SWAPI: 31, ID Odoo: 2872
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Chandrila, ID SWAPI: 32, ID Odoo: 2873
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Sullust, ID SWAPI: 33, ID Odoo: 2874
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Toydaria, ID SWAPI: 34, ID Odoo: 2875
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Malastare, ID SWAPI: 35, ID Odoo: 2876
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Dathomir, ID SWAPI: 36, ID Odoo: 2877
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Ryloth, ID SWAPI: 37, ID Odoo: 2878
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Aleen Minor, ID SWAPI: 38, ID Odoo: 2879
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Vulpter, ID SWAPI: 39, ID Odoo: 2880
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Troiken, ID SWAPI: 40, ID Odoo: 2881
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Tund, ID SWAPI: 41, ID Odoo: 2882
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Haruun Kal, ID SWAPI: 42, ID Odoo: 2883
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Cerea, ID SWAPI: 43, ID Odoo: 2884
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Glee Anselm, ID SWAPI: 44, ID Odoo: 2885
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Iridonia, ID SWAPI: 45, ID Odoo: 2886
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Tholoth, ID SWAPI: 46, ID Odoo: 2887
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Iktotch, ID SWAPI: 47, ID Odoo: 2888
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Quermia, ID SWAPI: 48, ID Odoo: 2889
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Dorin, ID SWAPI: 49, ID Odoo: 2890
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Champala, ID SWAPI: 50, ID Odoo: 2891
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Mirial, ID SWAPI: 51, ID Odoo: 2892
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Serenno, ID SWAPI: 52, ID Odoo: 2893
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Concord Dawn, ID SWAPI: 53, ID Odoo: 2894
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Zolan, ID SWAPI: 54, ID Odoo: 2895
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Ojom, ID SWAPI: 55, ID Odoo: 2896
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Skako, ID SWAPI: 56, ID Odoo: 2897
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Muunilinst, ID SWAPI: 57, ID Odoo: 2898
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Shili, ID SWAPI: 58, ID Odoo: 2899
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Kalee, ID SWAPI: 59, ID Odoo: 2900
+INFO:__main__:Odoo: Successfully create on model res.planet                                                                                                        
+INFO:__main__:Entity: res.planet, Name: Umbara, ID SWAPI: 60, ID Odoo: 2901
+Processing Planets: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████| 60/60 [00:03<00:00, 16.85it/s] 
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/people?page=1
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/people?page=2
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/people?page=3
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/people?page=4
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/people?page=5
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/people?page=6
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/people?page=7
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/people?page=8
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/people?page=9
+INFO:__main__:SWAPI: Successfully fetched data from https://swapi.dev/api/people
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/1.jpg                                             
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Luke Skywalker, ID SWAPI: 1, ID Odoo: 1797                                                                                
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/2.jpg                                             
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: C-3PO, ID SWAPI: 2, ID Odoo: 1798                                                                                         
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/3.jpg                                             
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: R2-D2, ID SWAPI: 3, ID Odoo: 1799                                                                                         
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/4.jpg                                             
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Darth Vader, ID SWAPI: 4, ID Odoo: 1800                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/5.jpg                                             
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Leia Organa, ID SWAPI: 5, ID Odoo: 1801                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/6.jpg                                             
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Owen Lars, ID SWAPI: 6, ID Odoo: 1802                                                                                     
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/7.jpg                                             
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Beru Whitesun lars, ID SWAPI: 7, ID Odoo: 1803                                                                            
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/8.jpg                                             
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: R5-D4, ID SWAPI: 8, ID Odoo: 1804                                                                                         
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/9.jpg                                             
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Biggs Darklighter, ID SWAPI: 9, ID Odoo: 1805                                                                             
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/10.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Obi-Wan Kenobi, ID SWAPI: 10, ID Odoo: 1806                                                                               
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/11.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Anakin Skywalker, ID SWAPI: 11, ID Odoo: 1807                                                                             
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/12.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Wilhuff Tarkin, ID SWAPI: 12, ID Odoo: 1808                                                                               
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/13.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Chewbacca, ID SWAPI: 13, ID Odoo: 1809                                                                                    
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/14.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Han Solo, ID SWAPI: 14, ID Odoo: 1810                                                                                     
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/15.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Greedo, ID SWAPI: 15, ID Odoo: 1811                                                                                       
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/16.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Jabba Desilijic Tiure, ID SWAPI: 16, ID Odoo: 1812                                                                        
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/18.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Wedge Antilles, ID SWAPI: 18, ID Odoo: 1813                                                                               
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/19.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Jek Tono Porkins, ID SWAPI: 19, ID Odoo: 1814                                                                             
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/20.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Yoda, ID SWAPI: 20, ID Odoo: 1815                                                                                         
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/21.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Palpatine, ID SWAPI: 21, ID Odoo: 1816                                                                                    
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/22.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Boba Fett, ID SWAPI: 22, ID Odoo: 1817                                                                                    
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/23.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: IG-88, ID SWAPI: 23, ID Odoo: 1818                                                                                        
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/24.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Bossk, ID SWAPI: 24, ID Odoo: 1819                                                                                        
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/25.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Lando Calrissian, ID SWAPI: 25, ID Odoo: 1820                                                                             
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/26.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Lobot, ID SWAPI: 26, ID Odoo: 1821                                                                                        
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/27.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Ackbar, ID SWAPI: 27, ID Odoo: 1822                                                                                       
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/28.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Mon Mothma, ID SWAPI: 28, ID Odoo: 1823                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/29.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Arvel Crynyd, ID SWAPI: 29, ID Odoo: 1824                                                                                 
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/30.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Wicket Systri Warrick, ID SWAPI: 30, ID Odoo: 1825                                                                        
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/31.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Nien Nunb, ID SWAPI: 31, ID Odoo: 1826                                                                                    
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/32.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Qui-Gon Jinn, ID SWAPI: 32, ID Odoo: 1827                                                                                 
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/33.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Nute Gunray, ID SWAPI: 33, ID Odoo: 1828                                                                                  
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/34.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Finis Valorum, ID SWAPI: 34, ID Odoo: 1829                                                                                
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/35.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Padmé Amidala, ID SWAPI: 35, ID Odoo: 1830                                                                                
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/36.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Jar Jar Binks, ID SWAPI: 36, ID Odoo: 1831                                                                                
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/37.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Roos Tarpals, ID SWAPI: 37, ID Odoo: 1832                                                                                 
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/38.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Rugor Nass, ID SWAPI: 38, ID Odoo: 1833                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/39.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Ric Olié, ID SWAPI: 39, ID Odoo: 1834                                                                                     
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/40.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Watto, ID SWAPI: 40, ID Odoo: 1835                                                                                        
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/41.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Sebulba, ID SWAPI: 41, ID Odoo: 1836                                                                                      
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/42.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Quarsh Panaka, ID SWAPI: 42, ID Odoo: 1837                                                                                
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/43.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Shmi Skywalker, ID SWAPI: 43, ID Odoo: 1838                                                                               
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/44.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Darth Maul, ID SWAPI: 44, ID Odoo: 1839                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/45.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Bib Fortuna, ID SWAPI: 45, ID Odoo: 1840                                                                                  
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/46.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Ayla Secura, ID SWAPI: 46, ID Odoo: 1841                                                                                  
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/47.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Ratts Tyerel, ID SWAPI: 47, ID Odoo: 1842                                                                                 
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/48.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Dud Bolt, ID SWAPI: 48, ID Odoo: 1843                                                                                     
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/49.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Gasgano, ID SWAPI: 49, ID Odoo: 1844                                                                                      
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/50.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Ben Quadinaros, ID SWAPI: 50, ID Odoo: 1845                                                                               
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/51.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Mace Windu, ID SWAPI: 51, ID Odoo: 1846                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/52.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Ki-Adi-Mundi, ID SWAPI: 52, ID Odoo: 1847                                                                                 
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/53.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Kit Fisto, ID SWAPI: 53, ID Odoo: 1848                                                                                    
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/54.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Eeth Koth, ID SWAPI: 54, ID Odoo: 1849                                                                                    
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/55.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Adi Gallia, ID SWAPI: 55, ID Odoo: 1850                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/56.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Saesee Tiin, ID SWAPI: 56, ID Odoo: 1851                                                                                  
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/57.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Yarael Poof, ID SWAPI: 57, ID Odoo: 1852                                                                                  
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/58.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Plo Koon, ID SWAPI: 58, ID Odoo: 1853                                                                                     
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/59.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Mas Amedda, ID SWAPI: 59, ID Odoo: 1854                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/60.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Gregar Typho, ID SWAPI: 60, ID Odoo: 1855                                                                                 
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/61.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Cordé, ID SWAPI: 61, ID Odoo: 1856                                                                                        
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/62.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Cliegg Lars, ID SWAPI: 62, ID Odoo: 1857                                                                                  
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/63.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Poggle the Lesser, ID SWAPI: 63, ID Odoo: 1858                                                                            
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/64.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Luminara Unduli, ID SWAPI: 64, ID Odoo: 1859                                                                              
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/65.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Barriss Offee, ID SWAPI: 65, ID Odoo: 1860                                                                                
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/66.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Dormé, ID SWAPI: 66, ID Odoo: 1861                                                                                        
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/67.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Dooku, ID SWAPI: 67, ID Odoo: 1862                                                                                        
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/68.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Bail Prestor Organa, ID SWAPI: 68, ID Odoo: 1863                                                                          
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/69.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Jango Fett, ID SWAPI: 69, ID Odoo: 1864                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/70.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Zam Wesell, ID SWAPI: 70, ID Odoo: 1865                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/71.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Dexter Jettster, ID SWAPI: 71, ID Odoo: 1866                                                                              
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/72.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Lama Su, ID SWAPI: 72, ID Odoo: 1867                                                                                      
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/73.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Taun We, ID SWAPI: 73, ID Odoo: 1868                                                                                      
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/74.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Jocasta Nu, ID SWAPI: 74, ID Odoo: 1869                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/75.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: R4-P17, ID SWAPI: 75, ID Odoo: 1870                                                                                       
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/76.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Wat Tambor, ID SWAPI: 76, ID Odoo: 1871                                                                                   
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/77.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: San Hill, ID SWAPI: 77, ID Odoo: 1872                                                                                     
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/78.jpg                                            
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Shaak Ti, ID SWAPI: 78, ID Odoo: 1873                                                                                     
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/79.jpg                                            
+INFO:__main__:Entity: res.partner, Name: Grievous, ID SWAPI: 79, ID Odoo: 1874
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/80.jpg
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Tarfful, ID SWAPI: 80, ID Odoo: 1875
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/81.jpg
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Raymus Antilles, ID SWAPI: 81, ID Odoo: 1876
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/82.jpg
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Sly Moore, ID SWAPI: 82, ID Odoo: 1877
+INFO:__main__:Valid image
+INFO:__main__:SWIMG: Successfully fetched image data from https://starwars-visualguide.com/assets/img/characters/83.jpg
+INFO:__main__:Odoo: Successfully create on model res.partner
+INFO:__main__:Entity: res.partner, Name: Tion Medon, ID SWAPI: 83, ID Odoo: 1878
+Processing People: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 82/82 [00:29<00:00,  2.80it/s] 
