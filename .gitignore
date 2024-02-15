@@ -4,3 +4,5 @@
 /log.log
 /a.py
 /.vscode
+/.venv
+/vcpkg
