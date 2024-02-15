@@ -1,18 +1,21 @@
 import argparse
 import asyncio
-from io import BytesIO
-from PIL import Image
 import logging
 import random
 import json
 import base64
+import time
+from io import BytesIO
+from PIL import Image
+from abc import ABC, abstractmethod
+
 import aiohttp
 from tqdm import tqdm
 from tqdm.contrib.logging import logging_redirect_tqdm
-from abc import ABC, abstractmethod
 
 
 async def main():
+    start_time = time.time()
     # Конфигурируем логирование
     # Устанавливаем уровень логирования INFO
     logging.basicConfig(level=logging.INFO)
@@ -32,7 +35,7 @@ async def main():
 
     # Создаем экземпляр JsonConfiguration, передавая путь до файла через аргумент
     config = JsonConfiguration(
-        filename=args.config if args.config else 'config.json', logger=logger)
+        filename=args.config if args.config else 'config copy.json', logger=logger)
 
     # Если удалось прочитать конфигурацию
     if config.read_config():
@@ -55,22 +58,27 @@ async def main():
             # Используем aiohttp для асинхронных HTTP-запросов
             async with aiohttp.ClientSession() as session:
                 odoo = Odoo(odoo_url, odoo_db, odoo_username,
-                            odoo_password, logger)
-                swapi = SWAPI(SWAPI_url, logger)
+                            odoo_password, logger, session)
+                swapi = SWAPI(SWAPI_url, logger, session)
                 swimg = SWIMG(SWIMG_api_url, logger, session)
 
                 # Создаем экземпляр DataProcessor для обработки данных
                 dataProc = DataProcessor(
                     swapi, swimg, odoo, logger, asyncio.get_event_loop())
-                
+
                 # Запускаем обработку данных
                 await dataProc.process_data()
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Program executed in {execution_time:.2f} seconds")
+
 
 # Абстрактный класс источника данных
 class DataSource(ABC):
     @abstractmethod
     def get_data(self, *args):
         pass
+
 
 # Абстрактный класс конфигурации
 class Configuration(ABC):
@@ -86,48 +94,45 @@ class Configuration(ABC):
     def get_system_config(self, system_name):
         pass
 
+
 # Источник данных SWAPI
 class SWAPI(DataSource):
-    def __init__(self, api_url, logger):
+    def __init__(self, api_url, logger, session):
         self.api_url = api_url
         self.logger = logger
+        self.session = session
+        self.semaphore = asyncio.Semaphore(50)
 
     async def fetch_data(self, session, url):
         # Асинхронный HTTP-запрос для получения данных от SWAPI
-        async with session.get(url) as response:
-            return await response.json()
+        async with self.semaphore:
+            async with session.get(url) as response:
+                if (response.status == 200):
+                    return await response.json()
+                else:
+                    self.logger.error(
+                        f"Произошла ошибка при выполнении запроса. Url: {url} Статус: {response.status}")
 
     async def get_data(self, resource):
-        url = f'{self.api_url}{resource}'
+        url_res = f'{self.api_url}{resource}'
         if '/' in resource:
             # Если ресурс содержит '/', то это конечный ресурс
-            async with aiohttp.ClientSession() as session:
-                data = await self.fetch_data(session, url)
-                self.logger.info(
-                    "SWAPI: Successfully fetched data from %s", url)
-                return data
+            data = await self.fetch_data(self.session, url_res)
+            self.logger.info(
+                "SWAPI: Successfully fetched data from %s", url_res)
+            return data
         else:
-            # Иначе, это ресурс с пагинацией (несколько страниц)
-            i = 1
-            result = []
+            count = await self.get_count(resource)
+            urls = [f'{url_res}/{i}' for i in range(1, count + 1)]
+            tasks = [self.fetch_data(self.session, url) for url in urls]
+            results = await asyncio.gather(*tasks)
+            return results
 
-            async with aiohttp.ClientSession() as session:
-                while True:
-                    param = f"page={i}"  # Параметр запроса
-                    # Формирование URL с параметрами
-                    url_with_params = f'{url}?{param}'
-                    json_data = await self.fetch_data(session, url_with_params)
-                    self.logger.info(
-                        "SWAPI: Successfully fetched data from %s", url_with_params)
-                    result.extend(json_data.get('results', []))
+    async def get_count(self, resource):
+        url_res = f'{self.api_url}{resource}'
+        json_data = await self.fetch_data(self.session, url_res)
+        return json_data.get('count')
 
-                    i += 1
-
-                    if not json_data.get('next'):
-                        break
-
-            self.logger.info("SWAPI: Successfully fetched data from %s", url)
-            return result
 
 # Источник данных SWIMG для изображений
 class SWIMG(DataSource):
@@ -135,6 +140,7 @@ class SWIMG(DataSource):
         self.api_url = api_url
         self.logger = logger
         self.session = session
+        self.semaphore = asyncio.Semaphore(50)
 
     def is_valid_image(self, data):
         try:
@@ -148,19 +154,33 @@ class SWIMG(DataSource):
 
     async def fetch(self, session, url):
         # Асинхронный HTTP-запрос для получения данных изображения от SWIMG
-        async with session.get(url) as response:
-            return await response.read()
+        async with self.semaphore:
+            async with session.get(url) as response:
+                return await response.read()
 
-    async def get_data(self, id):
-        url = f'{self.api_url}{id}.jpg'
+    async def get_data(self, ids):
+        async def fetch_and_validate(id):
+            url = f'{self.api_url}{id}.jpg'
+            img_data = await self.fetch(self.session, url)
+            if self.is_valid_image(img_data):
+                self.logger.info(
+                    "SWIMG: Successfully fetched image data from %s", url)
+                return id, img_data
+            else:
+                return id, None
 
-        img_data = await self.fetch(self.session, url)
-        if self.is_valid_image(img_data):
-            self.logger.info("Valid image")
+        if isinstance(ids, list):
+            tasks = [fetch_and_validate(id) for id in ids]
+            results = {}
+            with tqdm(total=len(ids), desc="Загрузка изображений") as pbar:
+                for coro in asyncio.as_completed(tasks):
+                    id, result = await coro
+                    results[id] = result
+                    pbar.update(1)
+            return [results[id] for id in ids]
         else:
-            self.logger.info("Not a valid image")
-        self.logger.info("SWIMG: Successfully fetched image data from %s", url)
-        return img_data
+            id, result = await fetch_and_validate(ids)
+            return result
 
 
 class JsonConfiguration(Configuration):
@@ -185,16 +205,18 @@ class JsonConfiguration(Configuration):
     def get_system_config(self, system_name):
         return self.data.get(system_name, {})
 
+
 # Класс для взаимодействия с Odoo
 class Odoo:
 
-    def __init__(self, url, db, username, password, logger):
+    def __init__(self, url, db, username, password, logger, session):
         self.url = url + "/jsonrpc"
         self.db = db
         self.username = username
         self.password = password
         self.logger = logger
         self.semaphore = asyncio.Semaphore(20)
+        self.session = session
 
     async def conn(self):
         try:
@@ -212,13 +234,12 @@ class Odoo:
             "params": params,
             "id": random.randint(0, 1000000000),
         }
-        async with aiohttp.ClientSession() as session:
-            async with self.semaphore:
-                async with session.post(url, json=data, headers={"Content-Type": "application/json"}) as response:
-                    reply = await response.json()
-                    if reply.get("error"):
-                        raise Exception(reply["error"])
-                    return reply["result"]
+        async with self.semaphore:
+            async with self.session.post(url, json=data, headers={"Content-Type": "application/json"}) as response:
+                reply = await response.json()
+                if reply.get("error"):
+                    raise Exception(reply["error"])
+                return reply["result"]
 
     async def call(self, url, service, method, *args):
         # Выполнение JSON-RPC вызова
@@ -227,7 +248,7 @@ class Odoo:
     async def create(self, uid, model, params):
         try:
             # Создание записи в Odoo
-            result = await self.call(self.url, "object", "execute", self.db, uid, self.password, model, 'create', params)
+            [result] = await self.call(self.url, "object", "execute", self.db, uid, self.password, model, 'create', params)
             self.logger.info(f"Odoo: Successfully create on model {model}")
             return result
         except Exception as e:
@@ -236,6 +257,9 @@ class Odoo:
 
     async def create_batch(self, uid, model, params_list):
         try:
+            # Создаем список для хранения завершенных фьючерсов
+            completed_requests = []
+
             # Собираем список запросов на создание записей
             create_requests = [
                 self.call(self.url, "object", "execute", self.db,
@@ -243,15 +267,23 @@ class Odoo:
                 for params in params_list
             ]
 
-            # Выполняем запросы параллельно и получаем результаты
-            results = await asyncio.gather(*create_requests)
+            # Отслеживаем прогресс с помощью прогресс-бара
+            with tqdm(total=len(params_list), desc=f"Creating records in model {model}", position=0) as pbar:
+                # Используем as_completed для отслеживания завершения каждого запроса
+                for coro in asyncio.as_completed(create_requests):
+                    # Ожидаем завешения текущего запроса
+                    result = await coro
+                    completed_requests.append(result)
+                    # Обновляем прогресс-бар
+                    pbar.update(1)
 
             self.logger.info(
                 f"Odoo: Successfully created {len(params_list)} records in model {model}")
-            return results
+            return completed_requests
         except Exception as e:
             self.logger.error(f"Odoo: Batch create failed - {str(e)}")
             raise
+
 
 # Класс для обработки данных
 class DataProcessor:
@@ -262,82 +294,69 @@ class DataProcessor:
         self.logger = logger
         self.loop = loop
 
+    async def planet(self, id):
+        swapi_planet = await self.swapi.get_data(f'planets/{id}')
+        if not swapi_planet:
+            return id, None
+        name = swapi_planet.get('name')
+        diameter = swapi_planet.get('diameter')
+        population = swapi_planet.get('population')
+        rotation_period = swapi_planet.get('rotation_period')
+        orbital_period = swapi_planet.get('orbital_period')
+        params = [{
+            'name': name,
+            'diameter': diameter if diameter != 'unknown' else None,
+            'population': population if population != 'unknown' else None,
+            'rotation_period': rotation_period if rotation_period != 'unknown' else None,
+            'orbital_period': orbital_period if orbital_period != 'unknown' else None,
+        }]
+        return id, await self.odoo.create(self.uid, "res.planet", params)
+
+    async def people(self, id):
+        swapi_people = await self.swapi.get_data(f'people/{id}')
+        if not swapi_people:
+            return
+        name = swapi_people.get('name')
+        id_planet_swapi = swapi_people.get(
+            'homeworld').rstrip('/').split('/')[-1]
+        id_planet_odoo = self.planet_swapi_to_odoo[int(id_planet_swapi) - 1]
+        img_data = await self.swimg.get_data(id)
+        params = [{
+            'name': name,
+            'image_1920': base64.b64encode(img_data).decode("utf-8"),
+            'planet': id_planet_odoo,
+        }]
+        await self.odoo.create(self.uid, "res.partner", params)
+
     async def process_data(self):
 
         planet_swapi_to_odoo = {}
 
         # Используем tqdm для отображения прогресса
         with logging_redirect_tqdm():
-            # Получаем данные о планетах от SWAPI
-            planets = await self.swapi.get_data('planets')
             # Получаем идентификатор пользователя в Odoo
             self.uid = await self.odoo.conn()
-            # Cписок для хранения параметров создания записей в res.planets
-            for planet in tqdm(planets, position=0, desc='Processing Planets'):
-                swapi_planet_id = planet.get('url').rstrip('/').split('/')[-1]
-                name = planet.get('name')
-                diameter = planet.get('diameter')
-                population = planet.get('population')
-                rotation_period = planet.get('rotation_period')
-                orbital_period = planet.get('orbital_period')
-                params = [{
-                    'name': name,
-                    'diameter': diameter if diameter != 'unknown' else 0,
-                    'population': population if population != 'unknown' else 0,
-                    'rotation_period': rotation_period if rotation_period != 'unknown' else 0,
-                    'orbital_period': orbital_period if orbital_period != 'unknown' else 0,
-                }]
+            swapi_resource = 'planets'
+            planets_count = await self.swapi.get_count(swapi_resource)
+            tasks = [self.planet(id) for id in range(1, planets_count+1)]
+            planet_swapi_to_odoo = {}
+            with tqdm(total=planets_count, desc="Загрузка planet") as pbar:
+                for coro in asyncio.as_completed(tasks):
+                    swapi_id_planet, odoo_id_planet = await coro
+                    planet_swapi_to_odoo[swapi_id_planet] = odoo_id_planet
+                    pbar.update(1)
 
-                model = "res.planet"
+            self.planet_swapi_to_odoo = [planet_swapi_to_odoo[swapi_id_planet]
+                                         for swapi_id_planet in range(1, planets_count+1)]
 
-                # Создаем запись в Odoo и сохраняем идентификатор в словаре
-                planet_swapi_to_odoo[swapi_planet_id] = await self.odoo.create(self.uid, model, params)
+            swapi_resource = 'people'
+            people_count = await self.swapi.get_count(swapi_resource)
+            tasks = [self.people(id) for id in range(1, people_count+1)]
 
-                # Проверка успешного создания записи
-                if planet_swapi_to_odoo[swapi_planet_id]:
-                    created_id_odoo = planet_swapi_to_odoo[swapi_planet_id][0]
-                    self.logger.info(
-                        f"Entity: {model}, Name: {name}, ID SWAPI: {swapi_planet_id}, ID Odoo: {created_id_odoo}")
-                else:
-                    self.logger.error(
-                        f"Error creating entity: {model}, Name: {name}, ID SWAPI: {swapi_planet_id}")
-
-            # Получаем данные о персонажах от SWAPI
-            people = await self.swapi.get_data('people')
-
-            for person in tqdm(people, position=1, desc='Processing People'):
-                id_planet_swapi = person.get(
-                    'homeworld').rstrip('/').split('/')[-1]
-                id_people = person.get('url').rstrip('/').split('/')[-1]
-                name = person.get('name')
-                id_planet_odoo = planet_swapi_to_odoo[id_planet_swapi][0]
-
-                try:
-                    # Получаем изображение для персонажа от SWIMG
-                    img_data = await self.swimg.get_data(id_people)
-                    img_base64 = base64.b64encode(img_data).decode("utf-8")
-                except Exception as e:
-                    # Обработка ошибки при получении изображения
-                    self.logger.error(
-                        f"Error fetching image data for person {name}, id:{id_people}: {str(e)}")
-                    img_base64 = None  # Устанавливаем значение по умолчанию
-
-                params = [{
-                    'name': name,
-                    'image_1920': img_base64,
-                    'planet': id_planet_odoo,
-                }]
-                # Создание записи в Odoo
-                created_ids = await self.odoo.create(self.uid, "res.partner", params)
-
-                # Проверка успешного создания записи
-                if created_ids:
-                    created_id_odoo = created_ids[0]
-                    self.logger.info(
-                        f"Entity: res.partner, Name: {name}, ID SWAPI: {id_people}, ID Odoo: {created_id_odoo}")
-                else:
-                    self.logger.error(
-                        f"Error creating entity: res.partner, Name: {name}, ID SWAPI: {id_people}")
+            with tqdm(total=people_count, desc="Загрузка people") as pbar:
+                for coro in asyncio.as_completed(tasks):
+                    await coro
+                    pbar.update(1)
 
 
 if __name__ == '__main__':
