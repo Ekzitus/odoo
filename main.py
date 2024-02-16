@@ -4,7 +4,6 @@ import logging
 import random
 import json
 import base64
-import time
 from io import BytesIO
 from PIL import Image
 from abc import ABC, abstractmethod
@@ -19,8 +18,8 @@ async def main():
     Главная функция программы.
     Запускает основную логику программы.
     """
-    start_time = time.time()
-    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    logging.basicConfig(
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
 
@@ -58,9 +57,6 @@ async def main():
                     swapi, swimg, odoo, logger, asyncio.get_event_loop())
 
                 await dataProc.process_data()
-    end_time = time.time()
-    execution_time = end_time - start_time
-    print(f"Program executed in {execution_time:.2f} seconds")
 
 
 class DataSource(ABC):
@@ -97,14 +93,16 @@ class Configuration(ABC):
         Абстрактный метод для чтения конфигурационных данных.
 
         Возвращает:
-            bool: Результат чтения конфигурации (True - успешно, False - ошибка).
+            bool: Результат чтения конфигурации 
+            (True - успешно, False - ошибка).
         """
         pass
 
     @abstractmethod
     def get_system_config(self, system_name):
         """
-        Абстрактный метод для получения конфигурации для указанной системы.
+        Абстрактный метод для получения конфигурации 
+        для указанной системы.
 
         Параметры:
             system_name (str): Название системы.
@@ -220,7 +218,8 @@ class SWIMG(DataSource):
             data: Данные изображения.
 
         Возвращает:
-            bool: Результат проверки (True - валидное изображение, False - невалидное).
+            bool: Результат проверки 
+            (True - валидное изображение, False - невалидное).
         """
         try:
             img = Image.open(BytesIO(data))
@@ -250,7 +249,8 @@ class SWIMG(DataSource):
         Получение данных изображений по указанным идентификаторам.
 
         Параметры:
-            ids (list or int): Список идентификаторов или одиночный идентификатор изображения.
+            ids (list or int): Список идентификаторов или одиночный 
+            идентификатор изображения.
 
         Возвращает:
             list or bytes: Список данных изображений или данные изображения.
@@ -290,7 +290,8 @@ class JsonConfiguration(Configuration):
 
         Параметры:
             logger (logging.Logger): Логгер для записи сообщений.
-            filename (str): Имя файла с конфигурационными данными (по умолчанию 'config.json').
+            filename (str): Имя файла с конфигурационными 
+            данными (по умолчанию 'config.json').
         """
         self.filename = filename
         self.data = {}
@@ -301,7 +302,8 @@ class JsonConfiguration(Configuration):
         Чтение конфигурационных данных из файла JSON.
 
         Возвращает:
-            bool: Результат чтения конфигурационных данных (True - успешно, False - ошибка).
+            bool: Результат чтения конфигурационных данных 
+            (True - успешно, False - ошибка).
         """
         try:
             with open(self.filename, 'r') as file:
@@ -339,14 +341,14 @@ class Odoo:
         username (str): Имя пользователя для аутентификации в Odoo.
         password (str): Пароль пользователя для аутентификации в Odoo.
         logger (logging.Logger): Логгер для записи сообщений.
-        session (aiohttp.ClientSession): Сеанс aiohttp для выполнения HTTP-запросов.
+        session (aiohttp.ClientSession): 
+            Сеанс aiohttp для выполнения HTTP-запросов.
 
     Методы:
         conn: Аутентификация в системе Odoo.
         json_rpc: Выполнение JSON-RPC запроса к системе Odoo.
         call: Выполнение JSON-RPC вызова к указанному сервису и методу.
         create: Создание записи в указанной модели в системе Odoo.
-        create_batch: Пакетное создание записей в указанной модели в системе Odoo.
     """
 
     def __init__(self, url, db, username, password, logger, session):
@@ -359,7 +361,8 @@ class Odoo:
             username (str): Имя пользователя для аутентификации в Odoo.
             password (str): Пароль пользователя для аутентификации в Odoo.
             logger (logging.Logger): Логгер для записи сообщений.
-            session (aiohttp.ClientSession): Сеанс aiohttp для выполнения HTTP-запросов.
+            session (aiohttp.ClientSession): 
+                Сеанс aiohttp для выполнения HTTP-запросов.
         """
         self.url = url + "/jsonrpc"
         self.db = db
@@ -377,12 +380,39 @@ class Odoo:
             int: Идентификатор пользователя после успешной аутентификации.
         """
         try:
-            uid = await self.call(self.url, "common", "login",
-                                  self.db, self.username, self.password)
-            self.logger.info("Odoo: Successfully authenticated")
-            return uid
+            self.uid = await self.call(self.url, "common", "login",
+                                self.db, self.username, self.password)
+            if self.uid:
+                self.logger.info("Odoo: Successfully authenticated")
+                return self.uid
+            else:
+                raise ValueError("Invalid credentials")
         except Exception as e:
             self.logger.error("Odoo: Authentication failed - %s", str(e))
+            raise
+
+    async def find_by_name(self, name, resource):
+        """
+        Поиск ресурсов по имени в системе Odoo.
+
+        Параметры:
+            name (str): Имя для поиска.
+
+        Возвращает:
+            int or None: Идентификатор найденного ресурса или None, 
+            если ресурс не найден.
+        """
+        try:
+            result = await self.call(self.url, "object", "execute_kw",
+                                     self.db, self.uid, self.password, 
+                                     resource, 'search', 
+                                     [[('name', '=', name)]])
+            if result:
+                return result[0]
+            else:
+                return None
+        except Exception as e:
+            self.logger.error("Odoo: Search resource by name failed - %s", str(e))
             raise
 
     async def json_rpc(self, url, method, params):
@@ -454,46 +484,11 @@ class Odoo:
             self.logger.error("Odoo: Create failed - %s", str(e))
             raise
 
-    async def create_batch(self, uid, model, params_list):
-        """
-        Пакетное создание записей в указанной модели в системе Odoo.
-
-        Параметры:
-            uid (int): Идентификатор пользователя в системе Odoo.
-            model (str): Имя модели, в которую необходимо добавить записи.
-            params_list (list): Список словарей параметров для создания записей.
-
-        Возвращает:
-            list: Список идентификаторов созданных записей.
-        """
-        try:
-            completed_requests = []
-
-            create_requests = [
-                self.call(self.url, "object", "execute", self.db,
-                          uid, self.password, model, 'create', params)
-                for params in params_list
-            ]
-
-            desc = f'Creating records in model {model}'
-            with tqdm(total=len(params_list), desc=desc, position=0) as pbar:
-                for coro in asyncio.as_completed(create_requests):
-                    result = await coro
-                    completed_requests.append(result)
-                    pbar.update(1)
-
-            self.logger.info(
-                f"Odoo: Successfully created {len(params_list)}"
-                f"records in model {model}")
-            return completed_requests
-        except Exception as e:
-            self.logger.error(f"Odoo: Batch create failed - {str(e)}")
-            raise
-
 
 class DataProcessor:
     """
-    Класс для обработки данных из источников SWAPI и SWIMG и загрузки их в систему Odoo.
+    Класс для обработки данных из источников SWAPI и SWIMG 
+    и загрузки их в систему Odoo.
 
     Атрибуты:
         swapi (SWAPI): Объект для взаимодействия с API SWAPI.
@@ -503,9 +498,12 @@ class DataProcessor:
         loop (asyncio.AbstractEventLoop): Асинхронный цикл событий.
 
     Методы:
-        planet: Загрузка данных о планетах из SWAPI и сохранение в системе Odoo.
-        people: Загрузка данных о персонажах из SWAPI и сохранение в системе Odoo.
-        process_data: Обработка данных о планетах и персонажах из SWAPI и SWIMG и загрузка их в систему Odoo.
+        planet: Загрузка данных о планетах из SWAPI 
+            и сохранение в системе Odoo.
+        people: Загрузка данных о персонажах из SWAPI 
+            и сохранение в системе Odoo.
+        process_data: Обработка данных о планетах и персонажах 
+        из SWAPI и SWIMG и загрузка их в систему Odoo.
     """
     def __init__(self, swapi, swimg, odoo, logger, loop):
         """
@@ -526,36 +524,51 @@ class DataProcessor:
 
     async def planet(self, id):
         """
-        Загрузка данных о планете с заданным идентификатором из SWAPI и сохранение в системе Odoo.
+        Загрузка данных о планете с заданным идентификатором 
+        из SWAPI и сохранение в системе Odoo.
 
         Параметры:
             id (int): Идентификатор планеты в SWAPI.
 
         Возвращает:
-            tuple: Кортеж с идентификатором планеты и идентификатором созданной записи в системе Odoo.
+            tuple: Кортеж с идентификатором планеты и 
+            идентификатором созданной записи в системе Odoo.
         """
         swapi_planet = await self.swapi.get_data(f'planets/{id}')
         if not swapi_planet:
-            return id, None
+            return None
+        resource = "res.planet"
         name = swapi_planet.get('name')
-        diameter = swapi_planet.get('diameter')
-        population = swapi_planet.get('population')
-        rotation_period = swapi_planet.get('rotation_period')
-        orbital_period = swapi_planet.get('orbital_period')
-        params = [{
-            'name': name,
-            'diameter': diameter if diameter != 'unknown' else None,
-            'population': population if population != 'unknown' else None,
-            'rotation_period': 
-                rotation_period if rotation_period != 'unknown' else None,
-            'orbital_period': 
-                orbital_period if orbital_period != 'unknown' else None,
-        }]
-        return id, await self.odoo.create(self.uid, "res.planet", params)
+        existing_planet_id = await self.odoo.find_by_name(name, resource)
+        if existing_planet_id:
+            self.logger.info(
+                f"Odoo: Planet {name} already exists with" + 
+                "ID {existing_planet_id} SWAPI ID {id}")
+            return existing_planet_id
+        else:
+            diameter = swapi_planet.get('diameter')
+            population = swapi_planet.get('population')
+            rotation_period = swapi_planet.get('rotation_period')
+            orbital_period = swapi_planet.get('orbital_period')
+            params = [{
+                'name': name,
+                'diameter': diameter if diameter != 'unknown' else None,
+                'population': population if population != 'unknown' else None,
+                'rotation_period': 
+                    rotation_period if rotation_period != 'unknown' else None,
+                'orbital_period': 
+                    orbital_period if orbital_period != 'unknown' else None,
+            }]
+            planet_id = await self.odoo.create(self.uid, resource, params)
+            self.logger.info(
+                f"Odoo: Created planet {name} with" + 
+                "ID {planet_id} SWAPI ID {id}")
+            return planet_id
 
     async def people(self, id):
         """
-        Загрузка данных о персонаже с заданным идентификатором из SWAPI и сохранение в системе Odoo.
+        Загрузка данных о персонаже с заданным идентификатором 
+        из SWAPI и сохранение в системе Odoo.
 
         Параметры:
             id (int): Идентификатор персонажа в SWAPI.
@@ -563,46 +576,45 @@ class DataProcessor:
         swapi_people = await self.swapi.get_data(f'people/{id}')
         if not swapi_people:
             return
+        resource = "res.partner"
         name = swapi_people.get('name')
-        id_planet_swapi = swapi_people.get(
-            'homeworld').rstrip('/').split('/')[-1]
-        id_planet_odoo = self.planet_swapi_to_odoo[int(id_planet_swapi) - 1]
-        img_data = await self.swimg.get_data(id)
-        params = [{
-            'name': name,
-            'image_1920': base64.b64encode(img_data).decode("utf-8"),
-            'planet': id_planet_odoo,
-        }]
-        await self.odoo.create(self.uid, "res.partner", params)
+        existing_people_id = await self.odoo.find_by_name(name, resource)
+        if existing_people_id:
+            self.logger.info(
+                f"Odoo: Person {name} already exists with" + 
+                "ID {existing_people_id} SWAPI ID {id}")
+            return existing_people_id
+        else:
+            id_planet_swapi = swapi_people.get(
+                'homeworld').rstrip('/').split('/')[-1]
+            
+            id_planet_odoo = await self.planet(id_planet_swapi)
+
+            img_data = await self.swimg.get_data(id)
+            params = [{
+                'name': name,
+                'image_1920': base64.b64encode(img_data).decode("utf-8"),
+                'planet': id_planet_odoo,
+            }]
+            person_id = await self.odoo.create(self.uid, resource, params)
+            self.logger.info(
+                f"Odoo: Created person {name} with" +
+                "ID {person_id} SWAPI ID {id}")
+            return person_id
 
     async def process_data(self):
         """
-        Обработка данных о планетах и персонажах из SWAPI и SWIMG и загрузка их в систему Odoo.
+        Обработка данных о планетах и персонажах из SWAPI 
+        и SWIMG и загрузка их в систему Odoo.
         """
-
-        planet_swapi_to_odoo = {}
-
         with logging_redirect_tqdm():
             self.uid = await self.odoo.conn()
-            swapi_resource = 'planets'
-            planets_count = await self.swapi.get_count(swapi_resource)
-            tasks = [self.planet(id) for id in range(1, planets_count+1)]
-            planet_swapi_to_odoo = {}
-            with tqdm(total=planets_count, desc="Загрузка planet") as pbar:
-                for coro in asyncio.as_completed(tasks):
-                    swapi_id_planet, odoo_id_planet = await coro
-                    planet_swapi_to_odoo[swapi_id_planet] = odoo_id_planet
-                    pbar.update(1)
-
-            self.planet_swapi_to_odoo = [planet_swapi_to_odoo[swapi_id_planet]
-                                         for swapi_id_planet 
-                                         in range(1, planets_count+1)]
 
             swapi_resource = 'people'
             people_count = await self.swapi.get_count(swapi_resource)
             tasks = [self.people(id) for id in range(1, people_count+1)]
 
-            with tqdm(total=people_count, desc="Загрузка people") as pbar:
+            with tqdm(total=people_count, desc="Processing people") as pbar:
                 for coro in asyncio.as_completed(tasks):
                     await coro
                     pbar.update(1)
