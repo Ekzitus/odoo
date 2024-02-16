@@ -17,7 +17,7 @@ git clone https://github.com/Ekzitus/odoo.git
 cd your_project
 ```
 
-3. Создайте и активируйте вирутальное окружение
+3. Создайте и активируйте виртуальное окружение
 
 ```bash
 python -m venv .venv
