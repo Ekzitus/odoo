@@ -39,24 +39,35 @@ async def main():
         swimg_config = config.get_system_config('SWIMG')
 
         if swapi_config and odoo_config and swimg_config:
-            odoo_url = odoo_config.get('url')
-            odoo_db = odoo_config.get('db')
-            odoo_username = odoo_config.get('username')
-            odoo_password = odoo_config.get('password')
-
-            swapi_url = swapi_config.get('url')
-            swimg_api_url = swimg_config.get('url')
-
             async with aiohttp.ClientSession() as session:
-                odoo = Odoo(odoo_url, odoo_db, odoo_username,
-                            odoo_password, logger, session)
-                swapi = SWAPI(swapi_url, logger, session)
-                swimg = SWIMG(swimg_api_url, logger, session)
+                odoo = DataSourceFactory.create_data_source(
+                    'Odoo', odoo_config, logger, session)
+                swapi = DataSourceFactory.create_data_source(
+                    'SWAPI', swapi_config, logger, session)
+                swimg = DataSourceFactory.create_data_source(
+                    'SWIMG', swimg_config, logger, session)
 
                 dataProc = DataProcessor(
                     swapi, swimg, odoo, logger, asyncio.get_event_loop())
 
                 await dataProc.process_data()
+
+
+class DataSourceFactory:
+    @staticmethod
+    def create_data_source(system_name, config, logger, session):
+        if system_name == 'SWAPI':
+            return SWAPI(config.get('url'), logger, session)
+        elif system_name == 'SWIMG':
+            return SWIMG(config.get('url'), logger, session)
+        elif system_name == 'Odoo':
+            odoo_url = config.get('url')
+            odoo_db = config.get('db')
+            odoo_username = config.get('username')
+            odoo_password = config.get('password')
+            return Odoo(odoo_url, odoo_db, odoo_username, odoo_password, logger, session)
+        else:
+            raise ValueError(f"Unknown system name: {system_name}")
 
 
 class DataSource(ABC):
@@ -381,7 +392,7 @@ class Odoo:
         """
         try:
             self.uid = await self.call(self.url, "common", "login",
-                                self.db, self.username, self.password)
+                                       self.db, self.username, self.password)
             if self.uid:
                 self.logger.info("Odoo: Successfully authenticated")
                 return self.uid
@@ -404,15 +415,16 @@ class Odoo:
         """
         try:
             result = await self.call(self.url, "object", "execute_kw",
-                                     self.db, self.uid, self.password, 
-                                     resource, 'search', 
+                                     self.db, self.uid, self.password,
+                                     resource, 'search',
                                      [[('name', '=', name)]])
             if result:
                 return result[0]
             else:
                 return None
         except Exception as e:
-            self.logger.error("Odoo: Search resource by name failed - %s", str(e))
+            self.logger.error(
+                "Odoo: Search resource by name failed - %s", str(e))
             raise
 
     async def json_rpc(self, url, method, params):
@@ -435,7 +447,7 @@ class Odoo:
         }
         async with self.semaphore:
             headers = {"Content-Type": "application/json"}
-            async with self.session.post(url, json=data, 
+            async with self.session.post(url, json=data,
                                          headers=headers) as response:
                 reply = await response.json()
                 if reply.get("error"):
@@ -456,8 +468,8 @@ class Odoo:
             dict: Ответ от сервера Odoo в формате JSON.
         """
         params = {
-            "service": service, 
-            "method": method, 
+            "service": service,
+            "method": method,
             "args": args
         }
         return await self.json_rpc(url, "call", params)
@@ -475,7 +487,7 @@ class Odoo:
             int: Идентификатор созданной записи.
         """
         try:
-            [result] = await self.call(self.url, "object", "execute", 
+            [result] = await self.call(self.url, "object", "execute",
                                        self.db, uid, self.password, model,
                                        'create', params)
             self.logger.info(f"Odoo: Successfully create on model {model}")
@@ -505,6 +517,7 @@ class DataProcessor:
         process_data: Обработка данных о планетах и персонажах 
         из SWAPI и SWIMG и загрузка их в систему Odoo.
     """
+
     def __init__(self, swapi, swimg, odoo, logger, loop):
         """
         Инициализация объекта класса DataProcessor.
@@ -542,8 +555,8 @@ class DataProcessor:
         existing_planet_id = await self.odoo.find_by_name(name, resource)
         if existing_planet_id:
             self.logger.info(
-                f"Odoo: Planet {name} already exists with" + 
-                "ID {existing_planet_id} SWAPI ID {id}")
+                f"Odoo: Planet {name} already exists with" +
+                f"ID {existing_planet_id} SWAPI ID {id}")
             return existing_planet_id
         else:
             diameter = swapi_planet.get('diameter')
@@ -554,15 +567,15 @@ class DataProcessor:
                 'name': name,
                 'diameter': diameter if diameter != 'unknown' else None,
                 'population': population if population != 'unknown' else None,
-                'rotation_period': 
+                'rotation_period':
                     rotation_period if rotation_period != 'unknown' else None,
-                'orbital_period': 
+                'orbital_period':
                     orbital_period if orbital_period != 'unknown' else None,
             }]
             planet_id = await self.odoo.create(self.uid, resource, params)
             self.logger.info(
-                f"Odoo: Created planet {name} with" + 
-                "ID {planet_id} SWAPI ID {id}")
+                f"Odoo: Created planet {name} with" +
+                f"ID {planet_id} SWAPI ID {id}")
             return planet_id
 
     async def people(self, id):
@@ -581,13 +594,13 @@ class DataProcessor:
         existing_people_id = await self.odoo.find_by_name(name, resource)
         if existing_people_id:
             self.logger.info(
-                f"Odoo: Person {name} already exists with" + 
-                "ID {existing_people_id} SWAPI ID {id}")
+                f"Odoo: Person {name} already exists with" +
+                f"ID {existing_people_id} SWAPI ID {id}")
             return existing_people_id
         else:
             id_planet_swapi = swapi_people.get(
                 'homeworld').rstrip('/').split('/')[-1]
-            
+
             id_planet_odoo = await self.planet(id_planet_swapi)
 
             img_data = await self.swimg.get_data(id)
@@ -599,7 +612,7 @@ class DataProcessor:
             person_id = await self.odoo.create(self.uid, resource, params)
             self.logger.info(
                 f"Odoo: Created person {name} with" +
-                "ID {person_id} SWAPI ID {id}")
+                f"ID {person_id} SWAPI ID {id}")
             return person_id
 
     async def process_data(self):
